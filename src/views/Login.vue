@@ -8,27 +8,40 @@
         <span class="iconfont iconnew"></span>
       </div>
       <div class="inputs">
-        <input type="text" placeholder="请输入手机号码">
-        <input type="text" placeholder="请输入密码">
+        <hlinput @input="handleinput" placeholder="请输入手机号码" v-model="users.username"></hlinput>
+        <hlinput @input="handleinput" placeholder="请输入密码" v-model="users.password"></hlinput>
       </div>
-      <!-- <p class="tips">
+      <p class="tips">
         没有账号？
         <a href="#/register" class>去注册</a>
-      </p> -->
+      </p>
       <hlbutton class="btn" text="登录" @click="login"></hlbutton>
     </div>
   </div>
 </template>
 
 <script>
+// 引入子组件
 import hlbutton from '@/components/hl_button.vue'
+import hlinput from '@/components/hl_input.vue'
 export default {
+  data () {
+    return {
+      users: {
+        username: '111',
+        password: '123'
+      }
+    }
+  },
   components: {
-    hlbutton
+    hlbutton, hlinput
   },
   methods: {
     login (data) {
       console.log(data)
+    },
+    handleinput () {
+      console.log(event.target.value)
     }
   }
 }
@@ -60,13 +73,13 @@ export default {
    border:none;
    border-bottom: 2px solid #bbb;
    background-color: transparent;
-   margin:5px 0;
+   margin:10px 0;
  }
-//  .tips{
-//    display: flex;
-//    justify-content: flex-end;
-//    padding:5px;
-//  }
+ .tips{
+   display: flex;
+   justify-content: flex-end;
+   padding:5px;
+ }
 .btn{
   margin-top:60/360*100vw;
 }
