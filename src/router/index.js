@@ -4,7 +4,7 @@ import VueRouter from 'vue-router'
 
 // 引入单文件组件
 import Login from '@/views/Login.vue'
-
+import Person from '@/views/Person.vue'
 // 挂载
 Vue.use(VueRouter)
 
@@ -22,6 +22,11 @@ var router = new VueRouter({
       name: 'login',
       path: '/login',
       component: Login
+    },
+    {
+      name: 'person',
+      path: '/person',
+      component: Person
     }
   ]
 })
