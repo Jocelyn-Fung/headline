@@ -2,9 +2,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-// 引入单文件组件
+// 引入views单文件组件
 import Login from '@/views/Login.vue'
 import Person from '@/views/Person.vue'
+
 // 挂载
 Vue.use(VueRouter)
 
@@ -12,12 +13,6 @@ Vue.use(VueRouter)
 var router = new VueRouter({
 // 3.配置路由
   routes: [
-    // 暂时使用，后期需要改成首页
-    {
-      name: 'default',
-      path: '/',
-      component: Login
-    },
     {
       name: 'login',
       path: '/login',
@@ -25,10 +20,28 @@ var router = new VueRouter({
     },
     {
       name: 'person',
-      path: '/person',
+      path: '/person/:id',
       component: Person
     }
   ]
+})
+// 添加导航守卫
+// to：目标路由对象
+router.beforeEach((to, from, next) => {
+  // console.log(next)
+  if (to.path.indexOf('/person/') === 0) {
+    let token = localStorage.getItem('hl_token')
+    if (token) { // 如果有token数据，说明登录过了
+      next()
+      // console.log('验证成功')
+    } else { // 否则就重定向跳回登陆页面
+      next({ name: 'login' })
+      // console.log('验证失败')
+    }
+  } else { // 如果访问不需要授权的页面，就自由访问
+    next()
+    // console.log('下一页')
+  }
 })
 
 // 4.暴露

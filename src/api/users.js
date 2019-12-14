@@ -11,3 +11,12 @@ export const userlogin = (data) => {
     data
   })
 }
+// 3. 个人中心页面
+export const getUserInfo = (id) => {
+  return axios({
+    headers: {
+      Authorization: localStorage.getItem('hl_token')
+    }, // 拦截器处添加了token只要有token就通过，没有就不能正常显示页面，需登录
+    url: `/user/${id}`
+  })
+}

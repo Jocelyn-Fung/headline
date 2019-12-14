@@ -50,12 +50,13 @@ export default {
       userlogin(this.users)
         .then(res => {
           if (res.data.message === '登录成功') {
-            console.log(res)
+            // console.log(res)
             // 将令牌token存储到本地
-            // localStorage.setItem('')
+            localStorage.setItem('hl_token', res.data.data.token)
             // 登录成功跳转页面
-            this.$router.push({ path: `/person/${this.data.data.user.id}` })
+            this.$router.push({ path: `/person/${res.data.data.user.id}` })
           } else {
+            // 否则返回错误提示信息
             this.$toast.fail(res.data.message)
           }
         })
@@ -67,6 +68,7 @@ export default {
     },
     handleinput (value) {
       // console.log(this.users)
+      this.users.username = value
     }
   }
 }
