@@ -1,9 +1,9 @@
 <template>
   <div class="personal">
-    <router-link to="/edit_profile">
+    <router-link :to="'/editperson/' + currentuser.id">
       <div class="profile">
         <!-- $axios.defaults.baseURL读取axios的服务器路径 -->
-        <img src="http://img1.imgtn.bdimg.com/it/u=3757784226,1202878475&fm=26&gp=0.jpg" alt />
+        <img :src="currentuser.head_img" alt />
         <div class="profile-center">
           <div class="name">
             <span class="iconfont iconxingbienan"></span>{{currentuser.nickname}}
@@ -23,9 +23,9 @@
 
 <script>
 import { getUserInfo } from '@/api/users.js'
-// import hlheader from '@/components/hl_header'
 import hltable from '@/components/hl_table'
 import hlbutton from '@/components/hl_button.vue'
+import axios from 'axios'
 export default {
   data () {
     return {
@@ -43,6 +43,15 @@ export default {
         if (res.data.message === '获取成功') {
           this.currentuser = res.data.data
           // console.log('123', this.currentuser) // 赋值给到空数组，后面可以通过点语法获取具体内容
+          //  将基准路径保存到本地
+          localStorage.setItem('hl_token', axios.defaults.baseURL)
+          // 返回的数据可能没有图片数据,我们应该进行判断,如果有图片数据就设置为当前图片,如果没有就使用默认的图片
+          if (this.currentuser.head_img) {
+            this.currentuser.head_img = localStorage.getItem('hl_token') + this.currentuser.head.head_img
+          } else {
+            this.currentuser.head_img = localStorage.getItem('hl_token') + '/uploads/image/default.png'
+            // console.log(this.currentuser.head_img)
+          }
         }
       })
       .catch(err => {

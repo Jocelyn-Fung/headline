@@ -5,7 +5,7 @@ import VueRouter from 'vue-router'
 // 引入views单文件组件
 import Login from '@/views/Login.vue'
 import Person from '@/views/Person.vue'
-
+import Editperson from '@/views/editperson.vue'
 // 挂载
 Vue.use(VueRouter)
 
@@ -22,6 +22,11 @@ var router = new VueRouter({
       name: 'person',
       path: '/person/:id',
       component: Person
+    },
+    {
+      name: 'editperson',
+      path: '/editperson/:id',
+      component: Editperson
     }
   ]
 })
