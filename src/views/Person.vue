@@ -12,12 +12,13 @@
         </div>
         <span class="iconfont iconjiantou1"></span>
       </div>
-    <hltable title="我的关注" desc="关注的用户"></hltable>
+     </router-link>
+     <hltable title="我的关注" desc="关注的用户"></hltable>
    <hltable title="我的跟帖" desc="跟帖/回复"></hltable>
    <hltable title="我的收藏" desc="文章/视频"></hltable>
    <hltable title="设置"></hltable>
    <hlbutton text="退出"></hlbutton>
-    </router-link>
+
   </div>
 </template>
 
@@ -44,12 +45,12 @@ export default {
           this.currentuser = res.data.data
           // console.log('123', this.currentuser) // 赋值给到空数组，后面可以通过点语法获取具体内容
           //  将基准路径保存到本地
-          localStorage.setItem('hl_token', axios.defaults.baseURL)
+          localStorage.setItem('hl_basetoken', axios.defaults.baseURL)
           // 返回的数据可能没有图片数据,我们应该进行判断,如果有图片数据就设置为当前图片,如果没有就使用默认的图片
           if (this.currentuser.head_img) {
-            this.currentuser.head_img = localStorage.getItem('hl_token') + this.currentuser.head.head_img
+            this.currentuser.head_img = localStorage.getItem('hl_basetoken') + this.currentuser.head_img
           } else {
-            this.currentuser.head_img = localStorage.getItem('hl_token') + '/uploads/image/default.png'
+            this.currentuser.head_img = localStorage.getItem('hl_basetoken') + '/uploads/image/default.png'
             // console.log(this.currentuser.head_img)
           }
         }

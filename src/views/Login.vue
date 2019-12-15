@@ -53,6 +53,7 @@ export default {
             // console.log(res)
             // 将令牌token存储到本地
             localStorage.setItem('hl_token', res.data.data.token)
+            // console.log(res.data.data.token)
             // 登录成功跳转页面
             this.$router.push({ path: `/person/${res.data.data.user.id}` })
           } else {
