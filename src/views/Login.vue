@@ -36,8 +36,8 @@ export default {
   data () {
     return {
       users: {
-        username: '111',
-        password: '123'
+        username: '',
+        password: ''
       }
     }
   },
@@ -53,6 +53,8 @@ export default {
             // console.log(res)
             // 将令牌token存储到本地
             localStorage.setItem('hl_token', res.data.data.token)
+            // 存储id,用于后面登录后在首页点击个人中心图标时顺利跳转到个人中心页，而不被拦截去登陆页
+            localStorage.setItem('hl_id', res.data.data.user.id)
             // console.log(res.data.data.token)
             // 登录成功跳转页面
             this.$router.push({ path: `/person/${res.data.data.user.id}` })

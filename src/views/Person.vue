@@ -17,7 +17,7 @@
    <hltable title="我的跟帖" desc="跟帖/回复"></hltable>
    <hltable title="我的收藏" desc="文章/视频"></hltable>
    <hltable title="设置"></hltable>
-   <hlbutton text="退出"></hlbutton>
+   <hlbutton text="退出" @click="logout"></hlbutton>
 
   </div>
 </template>
@@ -35,6 +35,13 @@ export default {
   },
   components: {
     hltable, hlbutton
+  },
+  methods: {
+    logout () {
+      localStorage.removeItem('hl_token')
+      localStorage.removeItem('hl_basetoken')
+      this.$router.push({ name: 'index' })
+    }
   },
   mounted () {
     let id = this.$route.params.id

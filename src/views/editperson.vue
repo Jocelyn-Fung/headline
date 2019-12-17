@@ -9,7 +9,7 @@
         <van-uploader :after-read="afterRead" />
       </div>
       <edittable title='昵称' :desc='current.nickname' @click="nickshow = !nickshow"></edittable>
-      <edittable title='密码' :desc='current.password' ></edittable>
+      <edittable title='密码' desc='******' @click="pawshow =! pawshow"></edittable>
       <edittable title='性别' :desc="current.gender ===1?'男':'女'" @click="gendershow = !gendershow">
       </edittable>
 
@@ -17,6 +17,13 @@
       <!-- // 添加dialog 昵称 -->
       <van-dialog v-model="nickshow" title="修改昵称" show-cancel-button @confirm='updateNickname'>
       <van-field required :value='current.nickname' label="昵称" placeholder="请输入昵称" ref="inp"/>
+      </van-dialog>
+      <!-- 密码 -->
+        <!-- 使用before-close需要写在行内 -->
+      <van-dialog v-model="pawshow" title="修改密码" show-cancel-button @confirm='updatepsw' :before-close='beforeClose'>
+        <van-field  required  label="原密码" right-icon="question-o" placeholder="请输入原始密码"
+         @click-right-icon="$toast('question')" ref="oldpsw" />
+        <van-field  label="新密码" placeholder="请输入新密码" required ref="newpsw"/>
       </van-dialog>
 
       <!-- 性别 -->
@@ -43,7 +50,8 @@ export default {
       id: '',
       current: {},
       nickshow: false,
-      gendershow: false
+      gendershow: false,
+      pawshow: false
     }
   },
   components: {
@@ -112,6 +120,49 @@ export default {
       this.genderIndex = index
       // console.log('321', this.genderIndex)
       // this.$toast(`当前值：${value}, 当前索引：${index}`)
+    },
+    // 修改用户密码 点击确认按钮的时候
+    // 应先判断原始密码是否正确，如果不正确给出错误提示，且输入框不关闭，原始密码正确的时候，获取用户输入的新密码，给出成功修改的提示
+    updatepsw () {
+      let oldpsw = this.$refs.oldpsw.$refs.input.value // 获取到用户输入的原始密码，进行判断，如果符合就继续，不符合就提示旧密码不对
+      // console.log(oldpsw)
+      // 原密码 this.current.password
+      if (this.current.password === oldpsw) {
+        // 用户输入的原始密码与数据库内的原始密码一致，应该将新的密码覆盖旧的密码，修改数据库,且返回登录页面，重新登录
+        let password = this.$refs.newpsw.$refs.input.value
+        // 对新密码进行要求，
+        if (!/\w{3,16}/.test(password)) {
+          this.$toast.fail('请输入3~16位的新密码')
+          return
+        }
+        editUserInfo(this.current.id, { password })
+          .then(res => {
+            if (res.data.message === '修改成功') {
+              this.$toast.success('密码修改成功，请重新登录')
+              localStorage.removeItem('hl_token')
+              localStorage.removeItem('hl_basetoken')
+              this.$router.push({ name: 'login' })
+            }
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      } else {
+        this.$toast.fail('原始密码错误，请重新输入正确的密码')
+      }
+    },
+    beforeClose (action, done) {
+      let oldpsw = this.$refs.oldpsw.$refs.input.value
+      let password = this.$refs.newpsw.$refs.input.value
+      if (action === 'confirm' && this.current.password !== oldpsw) {
+        this.$toast.fail('原始密码错误，请重新输入正确的密码')
+        done(false)
+      } else if (action === 'confirm' && !/\w{3,16}/.test(password)) {
+        this.$toast.fail('请输入3~16位字符')
+        done(false)
+      } else {
+        done()
+      }
     }
   },
   async mounted () {

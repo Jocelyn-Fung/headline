@@ -6,6 +6,9 @@ import VueRouter from 'vue-router'
 import Login from '@/views/Login.vue'
 import Person from '@/views/Person.vue'
 import Editperson from '@/views/editperson.vue'
+import Register from '@/views/register.vue'
+import Index from '@/views/index.vue'
+
 // 挂载
 Vue.use(VueRouter)
 
@@ -19,6 +22,11 @@ var router = new VueRouter({
       component: Login
     },
     {
+      name: 'register',
+      path: '/register',
+      component: Register
+    },
+    {
       name: 'person',
       path: '/person/:id',
       component: Person
@@ -27,6 +35,11 @@ var router = new VueRouter({
       name: 'editperson',
       path: '/editperson/:id',
       component: Editperson
+    },
+    {
+      name: 'index',
+      path: '/index',
+      component: Index
     }
   ]
 })

@@ -1,5 +1,4 @@
 import axios from 'axios'
-// import { Toast } from 'vant'
 //  配置基准路径
 axios.defaults.baseURL = 'http://localhost:3000'
 
@@ -8,6 +7,7 @@ axios.defaults.baseURL = 'http://localhost:3000'
 axios.interceptors.request.use(function (config) {
   // 判断响应的结果，是否是用户验证失败，如果是就重定向，回登录页面
   let token = localStorage.getItem('hl_token')
+  localStorage.setItem('hl_basetoken', axios.defaults.baseURL)
   //   console.log(token)
   if (token) {
     config.headers.Authorization = token
