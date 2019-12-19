@@ -3,7 +3,7 @@
       <span>
           <slot name="left"></slot>
       </span>
-      <span>个人信息编辑</span>
+      <span>{{title}}</span>
       <span>
           <slot name="right"></slot>
       </span>
@@ -12,7 +12,7 @@
 
 <script>
 export default {
-
+  props: ['title']
 }
 </script>
 

@@ -1,6 +1,6 @@
 <template>
   <div class="editperson">
-      <editheader class="edit">
+      <editheader class="edit" title="个人中心" >
           <span class="iconfont iconjiantou2" slot="left" @click="$router.back()"></span>
       </editheader>
       <div class="head">

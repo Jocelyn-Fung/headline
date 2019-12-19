@@ -8,7 +8,9 @@ import Person from '@/views/Person.vue'
 import Editperson from '@/views/editperson.vue'
 import Register from '@/views/register.vue'
 import Index from '@/views/index.vue'
-
+import Newsdetail from '@/views/newsdetail.vue'
+import Myfollows from '@/views/myfollows.vue'
+import MyCollections from '../views/myCollections.vue'
 // 挂载
 Vue.use(VueRouter)
 
@@ -40,6 +42,24 @@ var router = new VueRouter({
       name: 'index',
       path: '/index',
       component: Index
+    },
+    // 跳转到新闻详情页
+    {
+      name: 'newsdetail',
+      path: '/newsdetail/:id',
+      component: Newsdetail
+    },
+    // 跳转到我的关注页面
+    {
+      name: 'myfollows',
+      path: '/myfollows',
+      component: Myfollows
+    },
+    // 跳转到我的收藏页面
+    {
+      name: 'myCollections',
+      path: '/myCollections',
+      component: MyCollections
     }
   ]
 })

@@ -36,3 +36,30 @@ export const registerInfo = (data) => {
     data
   })
 }
+
+// 6. 用户关注发布者
+export const followUser = (id) => {
+  return axios({
+    url: `user_follows/${id}`
+  })
+}
+// 7。用户取消关注发布者
+export const unfollowUser = (id) => {
+  return axios({
+    url: `/user_unfollow/${id}`
+  })
+}
+
+// 8. 用户关注用户
+export const myFollowsUser = () => {
+  return axios({
+    url: '/user_follows'
+  })
+}
+// 9. 收藏文章列表
+export const collectArticleList = () => {
+  return axios({
+    methods: 'get',
+    url: 'user_star'
+  })
+}

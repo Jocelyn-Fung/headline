@@ -1,11 +1,14 @@
 <template>
   <div class="personal">
+    <myheader title="个人中心">
+        <span slot="left" class="iconfont iconjiantou2" @click="$router.push({path:'/index'})">首页</span>
+      </myheader>
     <router-link :to="'/editperson/' + currentuser.id">
       <div class="profile">
         <!-- $axios.defaults.baseURL读取axios的服务器路径 -->
         <img :src="currentuser.head_img" alt />
         <div class="profile-center">
-          <div class="name">
+          <div class="name" >
             <span class="iconfont iconxingbienan"></span>{{currentuser.nickname}}
           </div>
           <div class="time">2019-12-14</div>
@@ -13,12 +16,11 @@
         <span class="iconfont iconjiantou1"></span>
       </div>
      </router-link>
-     <hltable title="我的关注" desc="关注的用户"></hltable>
+     <hltable title="我的关注" desc="关注的用户" @click="$router.push({ path: '/myfollows' })"></hltable>
    <hltable title="我的跟帖" desc="跟帖/回复"></hltable>
-   <hltable title="我的收藏" desc="文章/视频"></hltable>
+   <hltable title="我的收藏" desc="文章/视频" @click="$router.push({path:'/myCollections'})"></hltable>
    <hltable title="设置"></hltable>
    <hlbutton text="退出" @click="logout"></hlbutton>
-
   </div>
 </template>
 
@@ -27,14 +29,16 @@ import { getUserInfo } from '@/api/users.js'
 import hltable from '@/components/hl_table'
 import hlbutton from '@/components/hl_button.vue'
 import axios from 'axios'
+import myheader from '@/components/hl_header.vue'
 export default {
+  props: ['title'],
   data () {
     return {
       currentuser: {}
     }
   },
   components: {
-    hltable, hlbutton
+    hltable, hlbutton, myheader
   },
   methods: {
     logout () {

@@ -90,7 +90,7 @@ export default {
       }
       // 下拉刷新的时候，刷新完毕应该停止loading
       this.cateList[this.active].isLoading = false
-      console.log(res) // 此时可以获取到带有具体新闻列表的内容了
+      // console.log(res) // 此时可以获取到带有具体新闻列表的内容了
     }
   },
   async mounted () {
@@ -104,7 +104,7 @@ export default {
           ...value, // 展开运算符，可以将所有的内容展开，和后面的数据重新组成一个数组
           postList: [], // 具体的数据内容新闻内容文章列表
           pageIndex: 1, // 文章当前页码
-          pageSize: 6, // 每一页记录几条数据
+          pageSize: 5, // 每一页记录几条数据
           loading: false, // 加载开始
           finished: false, // 加载结束
           isLoading: false // 下拉
