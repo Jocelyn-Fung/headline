@@ -30,3 +30,9 @@ export const collectTheArticle = id => {
     url: `/post_star/${id}`
   })
 }
+// 新闻评论列表
+export const getCommentList = (id) => {
+  return axios({
+    url: `post_comment/${id}`
+  })
+}

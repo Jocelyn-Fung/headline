@@ -3,13 +3,14 @@
     <!-- 写跟帖 -->
     <div class="writeComment" @click="writeComment" v-show="!isFocus">写跟帖</div>
       <!-- 写评论 -->
-      <div class="comment" v-show="!isFocus">
+      <div class="comment" v-show="!isFocus" @click="$router.push({path:`/commentList/${article.id}`})">
         <van-icon name="chat-o" info="9" class="forsize" />
       </div>
       <!-- 点收藏 -->
       <div :class="{active:article.has_star}" @click="collection" v-show="!isFocus">
         <van-icon name="star-o" class="forsize" />
       </div>
+      <!-- 点击分享 -->
       <div class="share" v-show="!isFocus">
         <van-icon name="cluster-o" class="forsize" />
       </div>
@@ -44,7 +45,7 @@ export default {
       this.$toast.success(res.data.message)
       this.article.has_star = !this.article.has_star
     },
-    // 点击的时候触发
+    // 点击输入框的时候触发
     writeComment () {
       this.isFocus = !this.isFocus
 

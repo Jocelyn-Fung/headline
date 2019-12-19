@@ -19,6 +19,7 @@ export default {
 <style lang='less' scoped>
     .header{
         display: flex;
+        // position:fixed;
         height:60*100vw/360;
         width:316*100vw/360;
         justify-content: space-between;

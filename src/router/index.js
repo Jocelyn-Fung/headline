@@ -10,7 +10,8 @@ import Register from '@/views/register.vue'
 import Index from '@/views/index.vue'
 import Newsdetail from '@/views/newsdetail.vue'
 import Myfollows from '@/views/myfollows.vue'
-import MyCollections from '../views/myCollections.vue'
+import MyCollections from '@/views/myCollections.vue'
+import CommentList from '@/views/commentList.vue'
 // 挂载
 Vue.use(VueRouter)
 
@@ -60,6 +61,12 @@ var router = new VueRouter({
       name: 'myCollections',
       path: '/myCollections',
       component: MyCollections
+    },
+    // 跳转到精彩跟帖页面
+    {
+      name: 'commentList',
+      path: '/commentList/:id',
+      component: CommentList
     }
   ]
 })

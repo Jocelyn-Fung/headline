@@ -59,7 +59,14 @@ export const myFollowsUser = () => {
 // 9. 收藏文章列表
 export const collectArticleList = () => {
   return axios({
-    methods: 'get',
+    method: 'get',
     url: 'user_star'
+  })
+}
+// 10.获取用户评论列表
+export const userComments = () => {
+  return axios({
+    method: 'get',
+    url: '/user_comments'
   })
 }
